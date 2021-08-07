@@ -31,5 +31,8 @@ Route::namespace('Web\Admin')->prefix('admin')->name('admin')->middleware('auth'
 
     Route::namespace('Users')->prefix('users')->name('.users')->middleware('permission:read-users')->group(function () {
         Route::get('aproved',                'UsersController@index')->name('.aproved.index');
+        Route::get('aproved/{user_id}',      'UsersController@accept')->middleware('permission:update-users-aproved')->name('.aproved.accept');
+        Route::get('delete/{user_id}',       'UsersController@delete')->middleware('permission:delete-users')->name('.delete.users');
     });
+
 });

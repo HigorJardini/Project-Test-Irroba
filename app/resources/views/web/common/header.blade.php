@@ -19,4 +19,7 @@
     {{-- <script src="{{ asset('files/js/bootstrap.bundle.min.js') }}"></script> --}}
     <script src="{{ asset('files/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('files/js/index.js') }}"></script>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>

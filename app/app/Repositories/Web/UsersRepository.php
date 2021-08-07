@@ -3,6 +3,7 @@
 namespace App\Repositories\Web;
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 use Exception;
 
@@ -26,8 +27,59 @@ class UsersRepository
                               ->paginate(20);
 
         } catch (\Throwable $th) {
-            dd($th);
             return response('', 500);
+        }
+    }
+
+    public function accept($user_id)
+    {
+        DB::beginTransaction();
+
+        try {
+
+            $this->user->where('id', $user_id)
+                       ->update([
+                           'aproved' => true
+                       ]);
+
+            DB::commit();
+
+                return response(["Usuário (id: $user_id) aprovado com successo!"], 200);
+
+        } catch (\Throwable $th) {
+
+            DB::rollBack();
+
+            return response(['errors' => [
+                                'users' => [
+                                    ['Erro durante a aprovação']
+                                ]
+                            ]], 500);
+        }
+    }
+
+    public function delete($user_id)
+    {
+        DB::beginTransaction();
+
+        try {
+
+            $this->user->where('id', $user_id)
+                       ->delete();
+
+            DB::commit();
+
+                return response(["Usuário (id: $user_id) deletado com successo!"], 200);
+
+        } catch (\Throwable $th) {
+
+            DB::rollBack();
+
+            return response(['errors' => [
+                                'users' => [
+                                    ['Erro durante deletar o usuário']
+                                ]
+                            ]], 500);
         }
     }
 }

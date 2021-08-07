@@ -181,11 +181,6 @@
     @endif
 </div>
 
-{{-- #0f1318 Side --}}
-{{-- #595b5d Side Up box --}}
-
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script>
 
     function loginAnimation() {

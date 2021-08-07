@@ -24,4 +24,14 @@ class UsersController extends Controller
         $users = $this->usersService->index();
         return view('web.pages.users.aproved', compact(['users']));
     }
+
+    public function accept(Request $request)
+    {   
+        return $this->usersService->accept($request->user_id);
+    }
+
+    public function delete(Request $request)
+    {   
+        return $this->usersService->delete($request->user_id);
+    }
 }

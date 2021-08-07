@@ -35,4 +35,14 @@ class UsersService
 
         return $users;
     }
+
+    public function accept($user_id)
+    {
+        return $this->usersRepository->accept($user_id);
+    }
+
+    public function delete($user_id)
+    {
+        return $this->usersRepository->delete($user_id);
+    }
 }

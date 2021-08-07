@@ -4,7 +4,7 @@
 @section('content')
 
 <div class="page-header">
-    <h1>Listagem de aprovação</h1>
+    <h1>Listagem de aprovação dos usuários</h1>
 </div>
 
 <div class="row justify-content-end mr-2" style="height: 20px;">
@@ -35,7 +35,7 @@
         <tbody>
             @if(count($users) > 0)
                 @foreach($users as $user)
-                    <tr>
+                    <tr id="tr-user-id-{{ $user->id }}">
                         <td class="font-default">
                             {{ $user->id }}
                         </td>
@@ -59,7 +59,7 @@
                         <td class="indexTd" style="width: 85px;">
                             <div style="display: inline-block">
                                 <a  class="btn btn-success btn-sm"
-                                    href=""
+                                    onclick="aprove_user({{ $user->id }})"
                                     data-toggle="tooltip"
                                     title="Aprovar usuário"
                                     data-placement="left"
@@ -69,7 +69,7 @@
                             </div>
                             <div style="display: inline-block">
                                 <a  class="btn btn-danger btn-sm"
-                                    href=""
+                                    onclick="delete_user({{ $user->id }})"
                                     data-toggle="tooltip"
                                     title="Reprovar usuário (deletar)"
                                     data-placement="left"
