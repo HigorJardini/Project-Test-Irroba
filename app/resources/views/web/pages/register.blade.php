@@ -18,7 +18,7 @@
     <div class="panel-body" 
          style="box-shadow: 0 5px 10px rgb(0 0 0 / 0.2)">
         <form method="POST" 
-              action="">
+              id="register-form">
             @CSRF
 
             <div class="input-content">
@@ -216,6 +216,7 @@
     }
 
     function registerSending() {
+
         const Result = Swal.mixin({
             toast: true,
             width: 310,
@@ -224,23 +225,56 @@
             timer: 2600,
             timerProgressBar: true,
             didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-        },
-        customClass: {
-            title: 'title-alert-size',
-        },
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            },
+            customClass: {
+                title: 'title-alert-size',
+            },
 
         });
 
-        var opt_alert = {
-        icon: 'success',
-        title: '<p>Registro enviado para análise!</p>'
-        };
+        var url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/register/create`;
+        var form_data = $('#register-form').serialize();
+   
+        $.ajax({
+        
+            url : url,
+            type: 'POST',
+            data : form_data
+        
+        }).done(function(response){ 
+            
+            var opt_alert = {
+            icon: 'success',
+            title: `<p>${response}</p>`
+            };
 
-        Result.fire(opt_alert);
+            Result.fire(opt_alert);
 
-        $('#registerButton').addClass('disabled');
+            $('#registerButton').addClass('disabled');
+
+            timerInterval = setInterval(() => {
+                location.href = '/';
+            }, 2600)
+
+        }).fail(function(response) {
+
+            var errors = '';
+
+            Object.values(response.responseJSON.errors).forEach(item => {
+                errors += "- " + item.join() + '</br>';
+            });
+
+            var opt_alert = {
+            icon: 'error',
+            title: `<p>${errors}</p>`
+            };
+
+            Result.fire(opt_alert);
+
+        });
+
     }
 </script>
 

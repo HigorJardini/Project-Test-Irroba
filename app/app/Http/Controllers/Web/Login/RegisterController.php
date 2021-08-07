@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers\Web\Login;
 
-use App\Http\Requests\RequestLogin;
+use App\Http\Requests\RequestRegister;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-use App\Services\Login\LoginService;
+use App\Services\Login\RegisterService;
 
 class RegisterController extends Controller
 {
-    private $loginService;
+    private $registerService;
 
 
-    public function __construct(LoginService $loginService)
+    public function __construct(RegisterService $registerService)
     {
         $this->middleware('guest', ['except' => 'logout']);
-        $this->loginService = $loginService;
+        $this->registerService = $registerService;
     }
 
     public function index()
@@ -25,14 +25,9 @@ class RegisterController extends Controller
         return view('web.pages.register');
     }
 
-    public function access(RequestLogin $request)
+    public function create(RequestRegister $request)
     {
-        $login = $this->loginService->access($request);
-        
-        if ($login->status() != 200){
-            return back()->withInput()->withErrors(json_decode($login->content()));
-        }else{
-            return redirect()->route('admin.dashboard');
-        }
+        return $this->registerService->create($request);
     }
+   
 }

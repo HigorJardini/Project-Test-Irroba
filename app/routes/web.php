@@ -23,6 +23,7 @@ Route::namespace('Web\Login')->prefix('login')->name('login')->group(function ()
 
 Route::namespace('Web\Login')->prefix('register')->name('register')->group(function () {
     Route::get('',                            'RegisterController@index')->name('.index');
+    Route::post('create',                     'RegisterController@create')->name('.create');
 });
 
 Route::namespace('Web\Admin')->prefix('admin')->name('admin')->middleware('auth')->group(function () {
