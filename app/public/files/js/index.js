@@ -2,24 +2,27 @@ function aprove_user(user_id) {
 
     var url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/admin/users/aproved/${user_id}`;
 
-    ajax_user(user_id, url);
+    ajax_user(user_id, url, 'PUT');
 }
 
 function delete_user(user_id) {
 
     var url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/admin/users/delete/${user_id}`;
 
-    ajax_user(user_id, url);
+    ajax_user(user_id, url, 'DELETE');
 }
 
-function ajax_user(user_id, url) {
+function ajax_user(user_id, url, method) {
 
     const Result = content_swal();
 
     $.ajax({
     
         url : url,
-        type: 'GET'
+        type: method,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     
     }).done(function(response){ 
         

@@ -34,4 +34,10 @@ class UsersController extends Controller
     {   
         return $this->usersService->delete($request->user_id);
     }
+
+    public function manageIndex()
+    {   
+        $users = $this->usersService->manageIndex();
+        return view('web.pages.users.manage', compact(['users']));
+    }
 }

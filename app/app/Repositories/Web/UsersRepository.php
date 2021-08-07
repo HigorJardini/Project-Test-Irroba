@@ -82,4 +82,19 @@ class UsersRepository
                             ]], 500);
         }
     }
+
+    public function manageIndex()
+    {
+        try {
+
+            return $this->user->with('roles')
+                              ->select('id', 'name', 'email')
+                              ->selectRaw("DATE_FORMAT(created_at, \"%d/%m/%Y %H:%i:%s\") as date")
+                              ->where('aproved', true)
+                              ->paginate(20);
+
+        } catch (\Throwable $th) {
+            return response('', 500);
+        }
+    }
 }

@@ -21,7 +21,7 @@ class PermissionSeeder extends Seeder
             ['name' => 'read-users-aproved',    'display_name' => 'read-users-aproved',   'description' => 'ver configurações de aprovação usuários'],
             ['name' => 'update-users-aproved',  'display_name' => 'update-users-aproved', 'description' => 'Atualizar configurações de aprovação usuários'],
             ['name' => 'delete-users',          'display_name' => 'delete-users',         'description' => 'Deletar usuários'],
-            ['name' => 'read-users-list',       'display_name' => 'read-users-list',      'description' => 'ver configurações de listagem dos usuários'],
+            ['name' => 'read-users-manage',     'display_name' => 'read-users-manage',    'description' => 'ver configurações de gerenciamento dos usuários'],
         ];
 
         foreach($permissions as $permission){

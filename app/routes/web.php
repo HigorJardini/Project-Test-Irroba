@@ -26,13 +26,19 @@ Route::namespace('Web\Login')->prefix('register')->name('register')->group(funct
     Route::post('create',                     'RegisterController@create')->name('.create');
 });
 
-Route::namespace('Web\Admin')->prefix('admin')->name('admin')->middleware('auth')->group(function () {
+Route::namespace('Web\Admin')->prefix('admin')->name('admin')->middleware('auth', 'logout.user')->group(function () {
     Route::get('',                            'DashboardController@index')->name('.dashboard');
 
     Route::namespace('Users')->prefix('users')->name('.users')->middleware('permission:read-users')->group(function () {
         Route::get('aproved',                'UsersController@index')->name('.aproved.index');
-        Route::get('aproved/{user_id}',      'UsersController@accept')->middleware('permission:update-users-aproved')->name('.aproved.accept');
-        Route::get('delete/{user_id}',       'UsersController@delete')->middleware('permission:delete-users')->name('.delete.users');
+        Route::put('aproved/{user_id}',      'UsersController@accept')->middleware('permission:update-users-aproved')->name('.aproved.accept');
+
+        Route::prefix('manage')->name('.manage')->middleware('permission:read-users-manage')->group(function () {
+            Route::get('',                   'UsersController@manageIndex')->name('.index');
+        });
+
+        Route::delete('delete/{user_id}',    'UsersController@delete')->middleware('permission:delete-users')->name('.delete.users');
+
     });
 
 });

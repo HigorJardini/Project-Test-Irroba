@@ -45,4 +45,22 @@ class UsersService
     {
         return $this->usersRepository->delete($user_id);
     }
+
+    public function manageIndex()
+    {
+        $users = $this->usersRepository->manageIndex();
+
+        foreach($users as $key => $user){
+
+            $roles = [];
+
+            foreach($user->roles as $role){
+                $roles[] = $role->display_name;
+            }
+            
+            $users[$key]->tags = implode(',',$roles);
+        }
+
+        return $users;
+    }
 }

@@ -41,7 +41,7 @@
 
                         <li>
                             <a href="#users" onclick="handleCollapse(event, 'users')">
-                                <i class="fas fa-users"></i>
+                                <i class="fas fa-users-cog"></i>
                                 Usuários
                                 <i class="fas fa-caret-right caret"></i>
                             </a>
@@ -53,9 +53,9 @@
                                     </li>
                                 @endpermission
                                 
-                                @permission('read-users-list')
+                                @permission('read-users-manage')
                                     <li>
-                                        <a href="">Listagem</a>
+                                        <a href="{{route('admin.users.manage.index')}}">Gerenciar</a>
                                     </li>
                                 @endpermission
 
