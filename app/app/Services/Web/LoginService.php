@@ -36,6 +36,7 @@ class LoginService
                     return response(["message" => "Email ou senha incorretos."], 422);
                 }
             }
-        }
+        } else
+        return response(["message" => "Usuário não cadastrado."], 422);
     }
 }

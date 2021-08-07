@@ -28,7 +28,7 @@ class LoginController extends Controller
     public function access(RequestLogin $request)
     {
         $login = $this->loginService->access($request);
-        
+    
         if ($login->status() != 200){
             return back()->withInput()->withErrors(json_decode($login->content()));
         }else{

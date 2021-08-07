@@ -23,23 +23,40 @@ class RegisterRepository
 
         try {
 
-            $this->user->create([
-                'name'     => $request->name,
-                'email'    => $request->email,
-                'password' => Hash::make($request->password),
-                'aproved'  => false,
-                'active'   => true
-            ]);
+            $user = $this->user->where('email', $request->email)
+                                ->first();
+            
+            if($user == null){
+                
+                $user = $this->user->create([
+                    'name'     => $request->name,
+                    'email'    => $request->email,
+                    'password' => bcrypt($request->password),
+                    'aproved'  => false,
+                    'active'   => true
+                ]);
 
-            DB::commit();
+                $user->attachRoles([$request->role]);
 
-            return response(['Registro enviado para análise!'], 200);
+                DB::commit();
+
+                return response(['Registro enviado para análise!'], 200);
+            } else
+                return response(['errors' => [
+                                    'users' => [
+                                        ['Usuário já cadastrado!']
+                                    ]
+                                ]], 400);
 
         } catch (\Throwable $th) {
 
             DB::rollBack();
 
-            return response(['Erro durante o registro'], 500);
+            return response(['errors' => [
+                                'users' => [
+                                    ['Erro durante o registro']
+                                ]
+                            ]], 500);
         }
 
     }
