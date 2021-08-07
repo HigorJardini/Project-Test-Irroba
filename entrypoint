@@ -1,0 +1,11 @@
+#!/bin/sh
+
+chmod -R ug+wr /var/www/html
+
+composer install
+composer dump-autoload
+php artisan optimize
+php artisan config:clear
+
+/usr/bin/supervisord -n > /dev/null 2>&1 &
+/usr/sbin/apache2ctl -D FOREGROUND

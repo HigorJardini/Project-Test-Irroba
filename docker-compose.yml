@@ -1,0 +1,41 @@
+version: '3'
+
+networks:
+  project:
+
+services:
+
+    project_irroba:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      container_name: project_irroba
+      volumes:
+        - ./app:/var/www/html
+        - ./httpd/default.conf:/etc/apache2/sites-available/project-irroba.conf
+      ports:
+        - "8000:80"
+        - "9004:9004"
+      depends_on:
+        - mysql
+      networks:
+        - project
+
+    mysql:
+      image: mysql:8.0.17
+      container_name: mysql_8
+      restart: unless-stopped
+      tty: true
+      ports:
+        - "3366:3306"
+      environment: 
+        MYSQL_DATABASE: project_irroba
+        MYSQL_USER: project_db
+        MYSQL_PASSWORD: password
+        MYSQL_ROOT_PASSWORD: password
+        SERVICE_TAGS: dev
+        SERVICE_NAME: mysql
+      networks: 
+        - project
+      volumes:
+        - ./mysql:/var/lib/mysql
