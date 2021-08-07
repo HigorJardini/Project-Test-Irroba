@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-use App\Services\Login\RegisterService;
+use App\Services\Web\RegisterService;
 
 class RegisterController extends Controller
 {

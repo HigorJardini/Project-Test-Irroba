@@ -2,7 +2,6 @@
 
 chmod -R ug+wr /var/www/html
 
-composer install
 composer dump-autoload
 php artisan optimize
 php artisan config:clear

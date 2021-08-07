@@ -8,11 +8,65 @@
     <ul class="menu-content">
 
         <li>
-            <a href="">
+            <a href="{{route('admin.dashboard')}}">
                 <i class="fas fa-home"></i>
                 Home
             </a>
         </li>
+
+        <li>
+            <a href="#classes" onclick="handleCollapse(event, 'classes')">
+                <i class="fas fa-users-class"></i>
+                Aulas
+                <i class="fas fa-caret-right caret"></i>
+            </a>
+            <ul class="sub-menu-content" id="classes" data-collapse="false">
+                <li>
+                    <a href="">Listagem</a>
+                </li>
+            </ul>
+        </li>
+
+        @permission('read-config')
+
+            <li>
+                <a href="#config" onclick="handleCollapse(event, 'config')">
+                    <i class="fas fa-cog"></i>
+                    Configurações
+                    <i class="fas fa-caret-right caret"></i>
+                </a>
+                <ul class="sub-menu-content" id="config" data-collapse="false">
+
+                    @permission('read-users')
+
+                        <li>
+                            <a href="#users" onclick="handleCollapse(event, 'users')">
+                                <i class="fas fa-users"></i>
+                                Usuários
+                                <i class="fas fa-caret-right caret"></i>
+                            </a>
+                            <ul class="sub-menu-content" id="users" data-collapse="false">
+
+                                @permission('read-users-aproved')
+                                    <li>
+                                        <a href="{{route('admin.users.aproved.index')}}">Aprovação</a>
+                                    </li>
+                                @endpermission
+                                
+                                @permission('read-users-list')
+                                    <li>
+                                        <a href="">Listagem</a>
+                                    </li>
+                                @endpermission
+
+                            </ul>
+                        </li>
+
+                    @endpermission
+                </ul>
+            </li>
+
+        @endpermission
 
     </ul>
 </nav>

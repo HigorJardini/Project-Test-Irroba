@@ -72,8 +72,8 @@
                   </div>
             </div>
 
-            <div class="row mt-3">
-                <label class="mb-1"><i class="fas fa-user-tag"></i> <b>Tag</b></label>
+            <label class="mb-1 mt-2"><i class="fas fa-user-tag"></i> <b>Tag</b></label>
+            <div class="row">
                 <div class="col-4 d-flex justify-content-center"> 
                     <div class="form-check">
                         <input class="form-check-input" 

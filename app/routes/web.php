@@ -28,4 +28,8 @@ Route::namespace('Web\Login')->prefix('register')->name('register')->group(funct
 
 Route::namespace('Web\Admin')->prefix('admin')->name('admin')->middleware('auth')->group(function () {
     Route::get('',                            'DashboardController@index')->name('.dashboard');
+
+    Route::namespace('Users')->prefix('users')->name('.users')->middleware('permission:read-users')->group(function () {
+        Route::get('aproved',                'UsersController@index')->name('.aproved.index');
+    });
 });
