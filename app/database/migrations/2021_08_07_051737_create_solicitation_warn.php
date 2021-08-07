@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateSolicitationWarn extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('solicitation_warn', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->boolean('aproved')->default(0);
-            $table->boolean('active')->default(1);
+
+            $table->unsignedBigInteger('classes_solicitation_id');
+            $table->foreign('classes_solicitation_id')->references('id')->on('classes_solicitation');
+
+            $table->boolean('warned');
+            $table->timestamp('warned_at');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -32,6 +32,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('solicitation_warn');
     }
 }
