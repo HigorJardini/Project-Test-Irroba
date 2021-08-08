@@ -27,6 +27,7 @@ Route::namespace('Web\Login')->prefix('register')->name('register')->group(funct
 });
 
 Route::namespace('Web\Admin')->prefix('admin')->name('admin')->middleware('auth', 'logout.user')->group(function () {
+
     Route::get('',                            'DashboardController@index')->name('.dashboard');
 
     Route::namespace('Users')->prefix('users')->name('.users')->middleware('permission:read-users')->group(function () {
@@ -37,13 +38,21 @@ Route::namespace('Web\Admin')->prefix('admin')->name('admin')->middleware('auth'
             Route::get('',                   'UsersController@manageIndex')->name('.index');
             Route::get('create',             'UsersController@manageCreate')->middleware('permission:create-users-manage')->name('.create');
             Route::post('store',             'UsersController@manageStore')->middleware('permission:create-users-manage')->name('.create.store');
-
             Route::get('view/{user_id}',     'UsersController@manageView')->middleware('permission:update-users-manage')->name('.view');
             Route::put('update/{user_id}',   'UsersController@manageUpdate')->middleware('permission:update-users-manage')->name('.update');
         });
 
         Route::delete('delete/{user_id}',    'UsersController@delete')->middleware('permission:delete-users')->name('.delete.users');
 
+    });
+
+    Route::namespace('Metters')->prefix('metters')->middleware('permission:read-metters')->name('.metters')->group(function () {
+        Route::get('',                       'MettersController@index')->name('.index');
+        Route::get('create',                 'MettersController@create')->middleware('permission:create-metters')->name('.create');
+        Route::post('store',                 'MettersController@store')->middleware('permission:create-metters')->name('.create.store');
+        Route::get('view/{metter_id}',       'MettersController@view')->middleware('permission:update-metters')->name('.view');
+        Route::put('update/{metter_id}',     'MettersController@update')->middleware('permission:update-metters')->name('.update');
+        Route::delete('delete/{metter_id}',  'MettersController@delete')->middleware('permission:delete-users')->name('.delete');
     });
 
 });

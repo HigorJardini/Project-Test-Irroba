@@ -24,9 +24,16 @@ class PermissionSeeder extends Seeder
             ['name' => 'create-users-manage',   'display_name' => 'create-users-manage',  'description' => 'Criar usuários nas configurações de gerenciamento'],
             ['name' => 'update-users-manage',   'display_name' => 'update-users-manage',  'description' => 'Atualizar usuários nas configurações de gerenciamento'],
             ['name' => 'delete-users',          'display_name' => 'delete-users',         'description' => 'Deletar usuários'],
+
+            ['name' => 'read-metters',     'display_name' => 'read-metters',    'description' => 'Ver listagem de matérias'],
+            ['name' => 'create-metters',   'display_name' => 'create-metters',  'description' => 'Criar matérias'],
+            ['name' => 'update-metters',   'display_name' => 'update-metters',  'description' => 'Atualizar matérias'],
+            ['name' => 'delete-metters',   'display_name' => 'delete-metters',  'description' => 'Deletar matérias'],
         ];
 
-        foreach($permissions as $permission){
+        $role = Role::find(3);
+
+        foreach($permissions as $key => $permission){
 
             Permission::create([
                 'name'         => $permission['name'],
@@ -34,10 +41,7 @@ class PermissionSeeder extends Seeder
                 'description'  => $permission['description']
             ]);
 
+            $role->attachPermissions([$key + 1]);
         }
-
-        $role = Role::find(3);
-
-        $role->attachPermissions([1,2,3,4,5,6,7,8]);
     }
 }

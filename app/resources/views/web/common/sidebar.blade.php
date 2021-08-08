@@ -24,9 +24,14 @@
                 <li>
                     <a href="">Listagem</a>
                 </li>
-                <li>
-                    <a href="">Matérias</a>
-                </li>
+
+                @permission('read-metters')
+
+                    <li>
+                        <a href="{{route('admin.metters.index')}}">Matérias</a>
+                    </li>
+
+                @endpermission
             </ul>
         </li>
 

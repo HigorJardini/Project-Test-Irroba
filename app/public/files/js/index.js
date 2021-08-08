@@ -12,7 +12,14 @@ function delete_user(user_id) {
     ajax_user(user_id, url, 'DELETE');
 }
 
-function ajax_user(user_id, url, method) {
+function delete_metter(metter_id) {
+
+    var url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/admin/metters/delete/${metter_id}`;
+
+    ajax_user(metter_id, url, 'DELETE');
+}
+
+function ajax_user(id, url, method) {
 
     const Result = content_swal();
 
@@ -33,7 +40,7 @@ function ajax_user(user_id, url, method) {
 
         Result.fire(opt_alert);
 
-        $('#tr-user-id-' + user_id).remove();
+        $('#tr-user-id-' + id).remove();
 
     }).fail(function(response) {
 
