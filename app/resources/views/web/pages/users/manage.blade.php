@@ -106,7 +106,7 @@
                                 </div>
                             @endpermission
 
-                            @permission('')
+                            @permission('delete-users')
                                 <div style="display: inline-block">
                                     <a  class="btn btn-danger btn-sm"
                                         onclick="delete_user({{ $user->id }})"
