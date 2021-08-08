@@ -16,8 +16,8 @@ class CreateSolicitationWarn extends Migration
         Schema::create('solicitation_warn', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('classes_solicitation_id');
-            $table->foreign('classes_solicitation_id')->references('id')->on('classes_solicitation');
+            $table->unsignedBigInteger('classe_solicitation_id');
+            $table->foreign('classe_solicitation_id')->references('id')->on('classes_solicitation');
 
             $table->boolean('warned');
             $table->timestamp('warned_at');
