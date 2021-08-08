@@ -62,6 +62,6 @@ class PermissionSeeder extends Seeder
         }
 
         $role1->attachPermissions([13,18,19,20]);
-        $role2->attachPermissions([9,13,14,15]);
+        $role2->attachPermissions([9,13,14,15, 21,22]);
     }
 }
