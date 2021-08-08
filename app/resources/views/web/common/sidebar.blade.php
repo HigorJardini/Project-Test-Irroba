@@ -21,9 +21,14 @@
                 <i class="fas fa-caret-right caret"></i>
             </a>
             <ul class="sub-menu-content" id="classes" data-collapse="false">
+
+                @permission('read-classes')
+
                 <li>
-                    <a href="">Listagem</a>
+                    <a href="{{route('admin.classes.index')}}">Listagem</a>
                 </li>
+
+                @endpermission
 
                 @permission('read-metters')
 

@@ -19,6 +19,13 @@ function delete_metter(metter_id) {
     ajax_user(metter_id, url, 'DELETE');
 }
 
+function delete_class(classe_id) {
+
+    var url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/admin/classes/delete/${classe_id}`;
+
+    ajax_user(classe_id, url, 'DELETE');
+}
+
 function ajax_user(id, url, method) {
 
     const Result = content_swal();

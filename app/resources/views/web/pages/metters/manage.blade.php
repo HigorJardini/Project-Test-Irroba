@@ -8,14 +8,15 @@
 
     <div class="breadcrumb-content">
         <ol>
-            <li class="breadcrumb-item"><a class="text-dark" href="{{ route('admin.dashboard') }}">Aulas</a></li>
+            <li class="breadcrumb-item"><a class="text-dark" href="{{ route('admin.dashboard') }}">Home</a></li>
+            <li class="breadcrumb-item"><a class="disabled text-secondary">Aulas</a></li>
             <li class="breadcrumb-item active" aria-current="page"><a class="text-dark" href="{{ route('admin.metters.index') }}">Matérias</a></li>
         </ol>
     </div>
 
 </div>
 
-@permission('create-users-manage')
+@permission('create-metters')
 
     <div class="row justify-content-end mr-2 mb-4" 
          style="height: 20px;"
@@ -70,25 +71,33 @@
                         </td>
                         
                         <td class="indexTd" style="width: 85px;">
-                            <div style="display: inline-block">
-                                <a  class="btn btn-primary btn-sm"
-                                    data-toggle="tooltip"
-                                    title="Editar matéria"
-                                    data-placement="left"
-                                >
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                            </div>
-                            <div style="display: inline-block">
-                                <a  class="btn btn-danger btn-sm"
-                                    onclick="delete_metter({{ $metter->id }})"
-                                    data-toggle="tooltip"
-                                    title="Deletar matéria"
-                                    data-placement="left"
-                                >
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                            </div>
+
+                            @permission('update-metters')
+                                <div style="display: inline-block">
+                                    <a  class="btn btn-primary btn-sm"
+                                        href="{{route('admin.metters.view', $metter->id)}}"
+                                        data-toggle="tooltip"
+                                        title="Editar matéria"
+                                        data-placement="left"
+                                    >
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </div>
+                            @endpermission
+
+                            @permission('delete-users')
+                                <div style="display: inline-block">
+                                    <a  class="btn btn-danger btn-sm"
+                                        onclick="delete_metter({{ $metter->id }})"
+                                        data-toggle="tooltip"
+                                        title="Deletar matéria"
+                                        data-placement="left"
+                                    >
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
+                            @endpermission
+
                         </td>
 
                     </tr>

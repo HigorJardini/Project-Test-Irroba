@@ -93,26 +93,31 @@
                         <td class="indexTd" 
                             style="width: 85px;"
                         >
-                            <div style="display: inline-block">
-                                <a  class="btn btn-primary btn-sm"
-                                    href="{{route('admin.users.manage.view', $user->id)}}"
-                                    data-toggle="tooltip"
-                                    title="Editar usuário"
-                                    data-placement="left"
-                                >
-                                    <i class="fas fa-user-edit"></i>
-                                </a>
-                            </div>
-                            <div style="display: inline-block">
-                                <a  class="btn btn-danger btn-sm"
-                                    onclick="delete_user({{ $user->id }})"
-                                    data-toggle="tooltip"
-                                    title="Reprovar usuário (deletar)"
-                                    data-placement="left"
-                                >
-                                    <i class="fas fa-user-times"></i>
-                                </a>
-                            </div>
+                            @permission('update-users-manage')
+                                <div style="display: inline-block">
+                                    <a  class="btn btn-primary btn-sm"
+                                        href="{{route('admin.users.manage.view', $user->id)}}"
+                                        data-toggle="tooltip"
+                                        title="Editar usuário"
+                                        data-placement="left"
+                                    >
+                                        <i class="fas fa-user-edit"></i>
+                                    </a>
+                                </div>
+                            @endpermission
+
+                            @permission('')
+                                <div style="display: inline-block">
+                                    <a  class="btn btn-danger btn-sm"
+                                        onclick="delete_user({{ $user->id }})"
+                                        data-toggle="tooltip"
+                                        title="Reprovar usuário (deletar)"
+                                        data-placement="left"
+                                    >
+                                        <i class="fas fa-user-times"></i>
+                                    </a>
+                                </div>
+                            @endpermission
                         </td>
         
                     </tr>

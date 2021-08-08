@@ -28,14 +28,14 @@ class MettersService
         return $this->mettersRepository->store($request);
     }
 
-    public function view($user_id)
+    public function view($metter_id)
     {
-        return $this->mettersRepository->view($user_id);
+        return $this->mettersRepository->view($metter_id);
     }
 
-    public function update($request)
+    public function update($metter_id)
     {
-        return $this->mettersRepository->update($request);
+        return $this->mettersRepository->update($metter_id);
     }
 
     public function delete($metter_id)

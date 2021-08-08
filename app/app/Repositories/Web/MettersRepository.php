@@ -51,12 +51,11 @@ class MettersRepository
         }
     }
 
-    public function view($user_id)
+    public function view($metter_id)
     {
         try {
             
-            return $this->user->with('roles')
-                              ->find($user_id);
+            return $this->metters->find($metter_id);
 
         } catch (\Throwable $th) {
 
@@ -70,40 +69,14 @@ class MettersRepository
 
         try {
 
-            $parms = ['name', 'email'];
-
-            $user_ct = $this->user->with('roles')
-                                  ->where('email',$request->email)
-                                  ->first();
-
-            if($user_ct != null && $user_ct->id != $request->user_id)
-                $errors['errors'][] = 'Email já se encontra Cadastrado';
-
-            if(isset($errors))
-                return $errors;
-
-            $arr = [];
-
-            foreach($request->only($parms) as $key => $index){
-                if(($index != '' || !empty($index)) && $key != 'role')
-                    if($key == 'password')
-                        $arr[$key] = bcrypt($index);
-                    else
-                        $arr[$key] = $index;
-            }
-
-            $arr['active'] = $request->status;
-
-            $this->user->find($request->user_id)->update($arr);
-
-            if($user_ct->roles[0]->id != $request->role){
-                $user_ct->detachRoles([$user_ct->roles[0]->id]);
-                $user_ct->attachRoles([$request->role]);
-            }
+            $this->metters->where('id', $request->metter_id)
+                          ->update([
+                'name' => $request->name
+            ]);            
 
             DB::commit();
 
-            return ['success' => 'Usuário editado com sucesso'];
+            return ['success' => 'Matéria editada com sucesso'];
 
         } catch (\Throwable $th) {
 

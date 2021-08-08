@@ -27,4 +27,8 @@ class User extends Authenticatable
 
     use SoftDeletes;
 
+    public function classes()
+    {
+        return $this->hasMany(Classes::class, 'user_id');
+    }
 }

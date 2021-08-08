@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Laratrust;
 
-class RequestMetterStore extends FormRequest
+class RequestClasses extends FormRequest
 {
 
     private $question;
@@ -21,7 +21,7 @@ class RequestMetterStore extends FormRequest
      */
     public function authorize()
     {
-        if(Laratrust::isAbleTo('create-metters'))
+        if(Laratrust::isAbleTo('create-classes'))
             return true;
         else
             return false;
@@ -36,7 +36,9 @@ class RequestMetterStore extends FormRequest
     {
 
         return [
-            'name'      => 'required|string|max:255',
+            'name'        => 'required|string|max:255',
+            'description' => 'required',
+            'id'          => 'required|exists:metters'
         ];
         
     }
@@ -46,7 +48,8 @@ class RequestMetterStore extends FormRequest
         return [
             'required'  => 'O campo :attribute deve ser preenchido.',
             'min'       => 'O campo :attribute tem o minimo de :min',
-            'max'       => 'O campo :attribute tem o limite de :max'
+            'max'       => 'O campo :attribute tem o limite de :max',
+            'exists'    => 'o campo :attribute não existe'
         ];
     }
 }

@@ -55,4 +55,13 @@ Route::namespace('Web\Admin')->prefix('admin')->name('admin')->middleware('auth'
         Route::delete('delete/{metter_id}',  'MettersController@delete')->middleware('permission:delete-users')->name('.delete');
     });
 
+    Route::namespace('Classes')->prefix('classes')->middleware('permission:read-classes')->name('.classes')->group(function () {
+        Route::get('',                       'ClassesController@index')->name('.index');
+        Route::get('create',                 'ClassesController@create')->middleware('permission:create-classes')->name('.create');
+        Route::post('store',                 'ClassesController@store')->middleware('permission:create-classes')->name('.create.store');
+        Route::get('view/{classe_id}',       'ClassesController@view')->middleware('permission:update-classes')->name('.view');
+        Route::put('update/{classe_id}',     'ClassesController@update')->middleware('permission:update-classes')->name('.update');
+        Route::delete('delete/{classe_id}',  'ClassesController@delete')->middleware('permission:delete-classes')->name('.delete');
+    });
+
 });
