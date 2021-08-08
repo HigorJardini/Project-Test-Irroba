@@ -24,6 +24,9 @@
                 <li>
                     <a href="">Listagem</a>
                 </li>
+                <li>
+                    <a href="">Matérias</a>
+                </li>
             </ul>
         </li>
 

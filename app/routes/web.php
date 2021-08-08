@@ -35,6 +35,11 @@ Route::namespace('Web\Admin')->prefix('admin')->name('admin')->middleware('auth'
 
         Route::prefix('manage')->name('.manage')->middleware('permission:read-users-manage')->group(function () {
             Route::get('',                   'UsersController@manageIndex')->name('.index');
+            Route::get('create',             'UsersController@manageCreate')->middleware('permission:create-users-manage')->name('.create');
+            Route::post('store',             'UsersController@manageStore')->middleware('permission:create-users-manage')->name('.create.store');
+
+            Route::get('view/{user_id}',     'UsersController@manageView')->middleware('permission:update-users-manage')->name('.view');
+            Route::put('update/{user_id}',   'UsersController@manageUpdate')->middleware('permission:update-users-manage')->name('.update');
         });
 
         Route::delete('delete/{user_id}',    'UsersController@delete')->middleware('permission:delete-users')->name('.delete.users');

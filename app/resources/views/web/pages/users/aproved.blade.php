@@ -1,15 +1,24 @@
 @extends('web.common.content')
-@section('title', 'Aproved')
+@section('title', 'Aprovação')
 @section('page', 'aproved')
 @section('content')
 
 <div class="page-header">
     <h1>Listagem de aprovação dos usuários</h1>
+
+    <div class="breadcrumb-content">
+        <ol>
+            <li class="breadcrumb-item"><a class="text-dark" href="{{ route('admin.dashboard') }}">Home</a></li>
+            <li class="breadcrumb-item"><a class="disabled text-secondary">Usuários</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="text-dark" href="{{ route('admin.users.aproved.index') }}">Aprovação</a></li>
+        </ol>
+    </div>
+
 </div>
 
 <div class="row justify-content-end mr-2" style="height: 20px;">
     <p>
-        Página Atual: <b>{{ json_decode($users->toJson())->from }} - {{ json_decode($users->toJson())->to }}</b> de <b>{{ json_decode($users->toJson())->total }}</b>
+        Página Atual: <b>{{ json_decode($users->toJson())->from ?? 0 }} - {{ json_decode($users->toJson())->to ?? 0 }}</b> de <b>{{ json_decode($users->toJson())->total }}</b>
     </p>
 </div>
 

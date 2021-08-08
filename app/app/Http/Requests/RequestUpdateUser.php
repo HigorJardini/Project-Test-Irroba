@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Laratrust;
 
-class RequestRegister extends FormRequest
+class RequestUpdateUser extends FormRequest
 {
 
     private $question;
@@ -20,7 +21,11 @@ class RequestRegister extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if(Laratrust::isAbleTo('update-users-manage'))
+            return true;
+        else
+            return false;
+        
     }
 
     /**
@@ -34,8 +39,8 @@ class RequestRegister extends FormRequest
         return [
             'name'     => 'required|string|max:255',
             'email'    => 'required|string|email|max:255',
-            'password' => 'required|string|min:6',
-            'role' => 'required'
+            'role'     => 'required',
+            'status'   => 'required'
         ];
         
     }

@@ -63,4 +63,19 @@ class UsersService
 
         return $users;
     }
+
+    public function manageStore($request)
+    {
+        return $this->usersRepository->manageStore($request);
+    }
+
+    public function manageView($user_id)
+    {
+        return $this->usersRepository->manageView($user_id);
+    }
+
+    public function manageUpdate($request)
+    {
+        return $this->usersRepository->manageUpdate($request);
+    }
 }

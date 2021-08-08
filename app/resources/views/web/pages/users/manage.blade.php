@@ -1,28 +1,44 @@
 @extends('web.common.content')
-@section('title', 'Manage')
+@section('title', 'Gerenciamento')
 @section('page', 'manage')
 @section('content')
 
 <div class="page-header">
     <h1>Gerênciamento dos usuários</h1>
+
+    <div class="breadcrumb-content">
+        <ol>
+            <li class="breadcrumb-item"><a class="text-dark" href="{{ route('admin.dashboard') }}">Home</a></li>
+            <li class="breadcrumb-item"><a class="disabled text-secondary">Usuários</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="text-dark" href="{{ route('admin.users.manage.index') }}">Gerenciamento</a></li>
+        </ol>
+    </div>
+
 </div>
 
-<div class="row justify-content-end mr-2 mb-4" style="height: 20px;">
-    <a class="btn btn-primary btn-sm"
-       data-toggle="tooltip"
-       title="Criar novo usuário"
-       data-placement="left"
+@permission('create-users-manage')
+
+    <div class="row justify-content-end mr-2 mb-4" 
+         style="height: 20px;"
     >
-        <i class="fas fa-users-medical" 
-           style="font-size: 16px;"
+        <a class="btn btn-primary btn-sm"
+           href="{{route('admin.users.manage.create')}}"
+           data-toggle="tooltip"
+           title="Criar novo usuário"
+           data-placement="left"
         >
-        </i>
-    </a>
-</div>
+            <i class="fas fa-users-medical" 
+               style="font-size: 16px;"
+            >
+            </i>
+        </a>
+    </div>
+
+@endpermission
 
 <div class="row justify-content-end mr-2" style="height: 20px;">
     <p>
-        Página Atual: <b>{{ json_decode($users->toJson())->from }} - {{ json_decode($users->toJson())->to }}</b> de <b>{{ json_decode($users->toJson())->total }}</b>
+        Página Atual: <b>{{ json_decode($users->toJson())->from ?? 0 }} - {{ json_decode($users->toJson())->to ?? 0 }}</b> de <b>{{ json_decode($users->toJson())->total }}</b>
     </p>
 </div>
 
@@ -35,6 +51,7 @@
                 <th scope="col">Tags</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Email</th>
+                <th scope="col">Status</th>
                 <th scope="col">Data</th>
                 <th colspan="1"
                     scope="col"
@@ -64,6 +81,10 @@
                         <td class="font-default">
                             {{  $user->email }}
                         </td>
+
+                        <td class="font-default">
+                            {{  $user->status }}
+                        </td>
         
                         <td class="font-default" style="width: 125px;">
                             {{  $user->date }}
@@ -74,6 +95,7 @@
                         >
                             <div style="display: inline-block">
                                 <a  class="btn btn-primary btn-sm"
+                                    href="{{route('admin.users.manage.view', $user->id)}}"
                                     data-toggle="tooltip"
                                     title="Editar usuário"
                                     data-placement="left"

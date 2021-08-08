@@ -18,7 +18,8 @@ class LogoutUser
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->deleted_at) {
+        // Validar se o usúario está realmente ativo
+        if (Auth::user()->deleted_at || !Auth::user()->active) {
             return redirect()->route('login.logout');
         } else
             return $next($request);
