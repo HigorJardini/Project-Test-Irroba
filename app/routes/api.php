@@ -14,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('login', 'Api\AuthController@login')->name('login');
+
+Route::middleware(['auth:api'])->group(function () {
+        Route::get('classes',  'Api\ClassesController@classes')->middleware('permission:read-classes')->name('classes');
+        Route::get('users',    'Api\UsersController@users')->middleware('permission:read-users-manage')->name('users');
+});
+
+
+Route::fallback(function () {
+        return response(['message' => 'Route Not Found'],404);
 });
