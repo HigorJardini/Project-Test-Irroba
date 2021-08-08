@@ -36,9 +36,16 @@ class PermissionSeeder extends Seeder
             ['name' => 'delete-classes',           'display_name' => 'delete-classes',          'description' => 'Deletar aulas'],
 
             ['name' => 'update-classes-teacher',   'display_name' => 'update-classes-teacher',  'description' => 'Atribuir professora as aulas'],
+            
+            ['name' => 'request-classes',          'display_name' => 'request-classes',         'description' => 'Solicitar entrada participação de aulas'],
+            ['name' => 'request-cancel-classes',   'display_name' => 'request-cancel-classes',  'description' => 'Cancelar participação de aulas'],
+
+            ['name' => 'read-all-classes',         'display_name' => 'read-all-classes',        'description' => 'Ver todas as aulas'],
         ];
 
-        $role = Role::find(3);
+        $role1 = Role::find(1);
+        $role2 = Role::find(2);
+        $role3 = Role::find(3);
 
         foreach($permissions as $key => $permission){
 
@@ -48,7 +55,10 @@ class PermissionSeeder extends Seeder
                 'description'  => $permission['description']
             ]);
 
-            $role->attachPermissions([$key + 1]);
+            $role3->attachPermissions([$key + 1]);
         }
+
+        $role1->attachPermissions([13,18,19,20]);
+        $role2->attachPermissions([9,13,14,15]);
     }
 }

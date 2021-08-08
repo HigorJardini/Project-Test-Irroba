@@ -84,4 +84,14 @@ class ClassesController extends Controller
     {
         return $this->classesService->delete($classe_id);
     }
+
+    public function request($classe_id)
+    {
+        return $this->classesService->request($classe_id);
+    }
+
+    public function requestCancel($classe_id)
+    {
+        return $this->classesService->requestCancel($classe_id);
+    }
 }

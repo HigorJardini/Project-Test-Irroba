@@ -26,7 +26,35 @@ function delete_class(classe_id) {
     ajax_user(classe_id, url, 'DELETE');
 }
 
-function ajax_user(id, url, method) {
+function request_class(classe_id) {
+
+    var url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/admin/classes/request/${classe_id}`;
+
+    const btn = {
+        'class': 'btn btn-warning btn-sm text-light disabled',
+        'content': '<i class="fas fa-user-clock"></i>',
+        'href': '',
+        'onclick': ''
+    }
+
+    ajax_user(classe_id, url, 'GET', false, btn);
+}
+
+function cancel_class(classe_id) {
+
+    var url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/admin/classes/request/cancel/${classe_id}`;
+
+    const btn = {
+        'class': 'btn btn-success btn-sm text-light',
+        'content': '<i class="fas fa-user-plus"></i>',
+        'href': '',
+        'onclick': `request_class(${classe_id})`
+    }
+
+    ajax_user(classe_id, url, 'DELETE', false, btn, true);
+}
+
+function ajax_user(id, url, method, remove_tr = true, btn = {}, btn_aux = false) {
 
     const Result = content_swal();
 
@@ -47,7 +75,29 @@ function ajax_user(id, url, method) {
 
         Result.fire(opt_alert);
 
-        $('#tr-user-id-' + id).remove();
+        if(remove_tr)
+            $('#tr-user-id-' + id).remove();
+
+        if(Object.keys(btn).length > 0){
+            $('#btn-' + id).removeAttr('class')
+                           .attr('class', btn.class)
+                           .html(btn.content);
+
+            if(btn.href != '')
+                $('#btn-' + id).removeAttr('href').attr('href', btn.href);
+            else
+                $('#btn-' + id).removeAttr('href');
+            
+            if(btn.onclick != ''){
+                console.log(btn.onclick);
+                $('#btn-' + id).removeAttr('onclick').attr('onclick', btn.onclick);
+            }
+            else
+                $('#btn-' + id).removeAttr('onclick');
+        } 
+
+        if(btn_aux)
+            $('#btn-aux-' + id).remove();
 
     }).fail(function(response) {
 
@@ -84,5 +134,14 @@ function content_swal(){
             title: 'title-alert-size',
         },
 
+    });
+}
+
+function view_description_class(text){
+    Swal.fire({
+        text: text,
+        showConfirmButton: false,
+        showCancelButton: false,
+        showCloseButton: true
     });
 }

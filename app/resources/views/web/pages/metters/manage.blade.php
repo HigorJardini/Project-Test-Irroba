@@ -62,6 +62,7 @@
             @if(count($metters) > 0)
                 @foreach($metters as $metter)
                     <tr id="tr-user-id-{{ $metter->id }}">
+
                         <td class="font-default">
                             {{ $metter->id }}
                         </td>

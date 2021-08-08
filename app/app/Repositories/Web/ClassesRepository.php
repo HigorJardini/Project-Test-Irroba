@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Web;
 
+use App\Models\ClassesSolicitation;
+use App\Models\SolicitationWarn;
 use App\Models\Classes;
 use App\Models\Metters;
 use App\Models\User;
@@ -16,24 +18,35 @@ class ClassesRepository
     private $classes;
     private $metters;
     private $user;
+    private $classesSolicitation;
+    private $solicitationWarn;
 
     public function __construct(
-        Classes $classes,
-        Metters $metters,
-        User    $user
+        Classes             $classes,
+        Metters             $metters,
+        User                $user,
+        ClassesSolicitation $classesSolicitation,
+        SolicitationWarn    $solicitationWarn
     )
     {
-        $this->classes = $classes;
-        $this->metters = $metters;
-        $this->user    = $user;
+        $this->classes             = $classes;
+        $this->metters             = $metters;
+        $this->user                = $user;
+        $this->classesSolicitation = $classesSolicitation;
+        $this->solicitationWarn    = $solicitationWarn;
     }
 
     public function index()
     {
         try {
 
-            return $this->classes->with('user')
-                                 ->paginate(20);
+            if(Laratrust::isAbleTo('read-all-classes'))
+                return $this->classes->with(['user','metters', 'classes_solicitation'])
+                                     ->paginate(20);
+            else
+                return $this->classes->with(['user','metters', 'classes_solicitation'])
+                                     ->where('user_id', Auth::id())
+                                     ->paginate(20);
 
         } catch (\Throwable $th) {
             return response('', 500);
@@ -46,11 +59,11 @@ class ClassesRepository
 
         try{   
 
-            if(Laratrust::isAbleTo('create-classes'))
+            if(Laratrust::isAbleTo('update-classes-teacher'))
                 $teacher_id = $request->teacher;
             else
                 $teacher_id = Auth::id();
-        
+
             $this->classes->create([
                 'metter_id'   => $request->id,
                 'user_id'     => $teacher_id,
@@ -64,7 +77,7 @@ class ClassesRepository
 
 
         } catch (\Throwable $th) {
-
+            dd($th);
             DB::rollBack();
 
             $errors['errors'][] = 'Algo de errado aconteceu';
@@ -90,7 +103,7 @@ class ClassesRepository
 
         try {
 
-            if(Laratrust::isAbleTo('create-classes'))
+            if(Laratrust::isAbleTo('update-classes-teacher'))
                 $teacher_id = $request->teacher;
             else
                 $teacher_id = Auth::id();
@@ -127,7 +140,7 @@ class ClassesRepository
 
             DB::commit();
 
-                return response(["Matéria (id: $classe_id) deletada com successo!"], 200);
+            return response(["Matéria (id: $classe_id) deletada com successo!"], 200);
 
         } catch (\Throwable $th) {
 
@@ -161,6 +174,84 @@ class ClassesRepository
 
         } catch (\Throwable $th) {
             return response('', 500);
+        }
+    }
+
+    public function request($classe_id)
+    {
+        DB::beginTransaction();
+
+        try {
+
+            $exist = $this->classesSolicitation->where('classe_id', $classe_id)
+                                               ->where('user_id', Auth::id())
+                                               ->first();
+
+            if($exist == null){
+                $solicitation = $this->classesSolicitation->create([
+                    'classe_id' => $classe_id,
+                    'user_id'   => Auth::id()
+                ]);
+    
+                $this->solicitationWarn->create([
+                    'classe_solicitation_id' => $solicitation->id
+                ]);
+
+                DB::commit();
+
+                return response(["Solicitação (id: $classe_id) criada com successo, aguarde aprovação!"], 200);
+
+            } else {
+                DB::rollBack();
+
+                return response(['errors' => [
+                                    'users' => [
+                                        ["Usuário já possui uma solicitação ativa para está aula."]
+                                    ]
+                                ]], 400);
+            }
+
+        } catch (\Throwable $th) {
+
+            DB::rollBack();
+
+            return response(['errors' => [
+                                'users' => [
+                                    ['Erro durante a solicição de entrar na aula']
+                                ]
+                            ]], 500);
+        }
+    }
+
+    public function requestCancel($classe_id)
+    {
+        DB::beginTransaction();
+
+        try {
+
+            $this->classesSolicitation->where('classe_id', $classe_id)
+                                      ->where('user_id', Auth::id())
+                                      ->update([
+                                          'canceled'    => true,
+                                          'canceled_at' => date('Y-m-d H:i:s')
+                                      ]);
+                                    
+            $this->classesSolicitation->where('classe_id', $classe_id)
+                                      ->where('user_id', Auth::id())
+                                      ->delete();
+            DB::commit();
+
+            return response(["Participação na aula (id: $classe_id) foi cancelada com successo!"], 200);
+
+        } catch (\Throwable $th) {
+
+            DB::rollBack();
+
+            return response(['errors' => [
+                                'users' => [
+                                    ['Erro durante o cancelamento da participação']
+                                ]
+                            ]], 500);
         }
     }
     

@@ -22,13 +22,14 @@ class CreateClassesSolicitation extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 
-            $table->boolean('accept');
-            $table->text('reason');
-            $table->boolean('canceled');
-            $table->timestamp('accepted_at');
-            $table->timestamp('canceled_at');
+            $table->boolean('accept')->default(0);
+            $table->text('reason')->nullable();
+            $table->boolean('canceled')->default(0);
+            $table->timestamp('accepted_at')->nullable();
+            $table->timestamp('canceled_at')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

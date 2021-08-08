@@ -154,7 +154,7 @@ class UsersRepository
 
         try {
 
-            $parms = ['name', 'email'];
+            $parms = ['name', 'email', 'password'];
 
             $user_ct = $this->user->with('roles')
                                   ->where('email',$request->email)
@@ -180,7 +180,11 @@ class UsersRepository
 
             $this->user->find($request->user_id)->update($arr);
 
-            if($user_ct->roles[0]->id != $request->role){
+            if($user_ct === null){
+                $user_up = $this->user->find($request->user_id);
+                $user_up->detachRoles([$user_up->roles[0]->id]);
+                $user_up->attachRoles([$request->role]);
+            } else if($user_ct->roles[0]->id != $request->role){
                 $user_ct->detachRoles([$user_ct->roles[0]->id]);
                 $user_ct->attachRoles([$request->role]);
             }
@@ -190,7 +194,7 @@ class UsersRepository
             return ['success' => 'Usuário editado com sucesso'];
 
         } catch (\Throwable $th) {
-
+            dd($th);
             DB::rollBack();
 
             $errors['errors'][] = 'Algo de errado aconteceu';

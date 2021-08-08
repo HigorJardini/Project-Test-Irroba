@@ -248,6 +248,7 @@
             Result.fire(opt_alert);
 
             $('#registerButton').addClass('disabled');
+            $('#loginPage').addClass('disabled');
 
             timerInterval = setInterval(() => {
                 location.href = '/';

@@ -22,7 +22,43 @@ class ClassesService
 
     public function index()
     {
-        return $this->classesRepository->index();
+        $classes = $this->classesRepository->index();
+
+        $user_id =  Auth::id();
+        
+        foreach($classes as $key => $class){
+
+            $students = [];
+
+            foreach($class->classes_solicitation as $students_request){
+                $students[] = [
+                    'user_id' => $students_request->user_id,
+                    'accept'  => $students_request->accept,
+                    'reason'  => $students_request->reason
+                ];
+            }
+
+            if(in_array($user_id, array_column($students, 'user_id'))){
+                $search = array_search($user_id, array_column($students, 'user_id'));
+
+                if(!is_bool($search)){
+                    $classes[$key]->solicitation_exist = [
+                        'status' => true,
+                        'accept' => $students[$search]['accept'],
+                        'reason' => $students[$search]['reason']
+                    ];
+                }   
+                
+            } else{
+                $classes[$key]->solicitation_exist = [
+                    'status' => false,
+                    'accept' => false,
+                    'reason' => false
+                ];
+            }
+        }
+
+        return $classes;
     }
 
     public function store($request)
@@ -57,5 +93,15 @@ class ClassesService
         else
             return [];
         
+    }
+
+    public function request($classe_id)
+    {
+        return $this->classesRepository->request($classe_id);
+    }
+
+    public function requestCancel($classe_id)
+    {
+        return $this->classesRepository->requestCancel($classe_id);
     }
 }

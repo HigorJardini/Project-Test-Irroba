@@ -23,4 +23,14 @@ class Classes extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function metters()
+    {
+        return $this->belongsTo(Metters::class, 'metter_id', 'id');
+    }
+
+    public function classes_solicitation()
+    {
+        return $this->hasMany(ClassesSolicitation::class, 'classe_id', 'id');
+    }
+
 }

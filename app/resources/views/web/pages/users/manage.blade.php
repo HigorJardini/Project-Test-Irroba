@@ -27,7 +27,7 @@
            title="Criar novo usuário"
            data-placement="left"
         >
-            <i class="fas fa-users-medical" 
+            <i class="fas fa-user-plus" 
                style="font-size: 16px;"
             >
             </i>

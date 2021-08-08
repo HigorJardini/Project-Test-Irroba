@@ -19,8 +19,8 @@ class CreateSolicitationWarn extends Migration
             $table->unsignedBigInteger('classe_solicitation_id');
             $table->foreign('classe_solicitation_id')->references('id')->on('classes_solicitation');
 
-            $table->boolean('warned');
-            $table->timestamp('warned_at');
+            $table->boolean('warned')->default(0);
+            $table->timestamp('warned_at')->nullable();
             $table->timestamps();
         });
     }
