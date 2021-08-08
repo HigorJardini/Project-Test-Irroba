@@ -107,6 +107,19 @@
                                 </div>
                             @endpermission
 
+                            @permission('read-classes-students')
+                                <div style="display: inline-block">
+                                    <a  class="btn btn-primary btn-sm"
+                                        href="{{route('admin.classes.index.students', $classe->id)}}"
+                                        data-toggle="tooltip"
+                                        title="Gerenciar Alunos"
+                                        data-placement="left"
+                                    >
+                                        <i class="fas fa-user-cog"></i>
+                                    </a>
+                                </div>
+                            @endpermission
+
                             @permission('request-classes')
 
                                 @if(!$classe->solicitation_exist['status'])
@@ -186,6 +199,7 @@
 
                                 
                             @endpermission
+
                         </td>
 
                     </tr>

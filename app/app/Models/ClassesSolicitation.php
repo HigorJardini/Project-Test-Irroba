@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ClassesSolicitation extends Model
 {
     protected $fillable = [
-                            'classe_id',
+                            'class_id',
                             'user_id',
                             'accept',
                             'reason',
@@ -30,7 +30,7 @@ class ClassesSolicitation extends Model
 
     public function classes()
     {
-        return $this->belongsTo(Classes::class, 'id', 'classe_id');
+        return $this->belongsTo(Classes::class, 'id', 'class_id');
     }
 
 }

@@ -66,19 +66,19 @@ class ClassesService
         return $this->classesRepository->store($request);
     }
 
-    public function view($classe_id)
+    public function view($class_id)
     {
-        return $this->classesRepository->view($classe_id);
+        return $this->classesRepository->view($class_id);
     }
 
-    public function update($classe_id)
+    public function update($class_id)
     {
-        return $this->classesRepository->update($classe_id);
+        return $this->classesRepository->update($class_id);
     }
 
-    public function delete($classe_id)
+    public function delete($class_id)
     {
-        return $this->classesRepository->delete($classe_id);
+        return $this->classesRepository->delete($class_id);
     }
 
     public function metter_list()
@@ -95,13 +95,28 @@ class ClassesService
         
     }
 
-    public function request($classe_id)
+    public function request($class_id)
     {
-        return $this->classesRepository->request($classe_id);
+        return $this->classesRepository->request($class_id);
     }
 
-    public function requestCancel($classe_id)
+    public function requestCancel($class_id)
     {
-        return $this->classesRepository->requestCancel($classe_id);
+        return $this->classesRepository->requestCancel($class_id);
+    }
+
+    public function studentsClassIndex($class_id)
+    {
+        return $this->classesRepository->studentsClassIndex($class_id);
+    }
+
+    public function studentsListIndex($class_id)
+    {
+        return $this->classesRepository->studentsListIndex($class_id);
+    }
+
+    public function responseStaudentRequest($request)
+    {
+        return $this->classesRepository->responseStaudentRequest($request);
     }
 }

@@ -16,8 +16,8 @@ class CreateClassesSolicitation extends Migration
         Schema::create('classes_solicitation', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('classe_id');
-            $table->foreign('classe_id')->references('id')->on('classes');
+            $table->unsignedBigInteger('class_id');
+            $table->foreign('class_id')->references('id')->on('classes');
 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

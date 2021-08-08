@@ -30,7 +30,7 @@ class Classes extends Model
 
     public function classes_solicitation()
     {
-        return $this->hasMany(ClassesSolicitation::class, 'classe_id', 'id');
+        return $this->hasMany(ClassesSolicitation::class, 'class_id', 'id');
     }
 
 }
