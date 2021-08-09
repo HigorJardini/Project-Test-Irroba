@@ -71,7 +71,7 @@ Arquivo da collection no postman e demais documentações (DER - versão 2.0 é 
 
 -------------------------------------------------------------
 
-Este projeto foi hospedado dentro da AWS: http://54.233.133.32:8000/ (t2.micro, talvez possa gerar alguma lentidão extrema, pelo número de requisições)
+Este projeto foi hospedado dentro da AWS: http://54.94.57.63:8000 (t2.micro, talvez possa gerar alguma lentidão extrema, pelo número de requisições)
 
 
 
