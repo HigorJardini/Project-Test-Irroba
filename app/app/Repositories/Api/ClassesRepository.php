@@ -6,7 +6,7 @@ use App\Models\Classes;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-use Laratrust;
+use Laratrust\LaratrustFacade as Laratrust;
 
 class ClassesRepository
 {

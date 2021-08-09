@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Laratrust;
+use Laratrust\LaratrustFacade as Laratrust;
 
 class RequestUpdateUser extends FormRequest
 {

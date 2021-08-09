@@ -5,7 +5,7 @@ namespace App\Services\Web;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
-use Laratrust;
+use Laratrust\LaratrustFacade as Laratrust;
 
 use App\Repositories\Web\ClassesRepository;
 

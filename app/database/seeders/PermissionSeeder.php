@@ -43,7 +43,9 @@ class PermissionSeeder extends Seeder
             ['name' => 'read-all-classes',                    'display_name' => 'read-all-classes',                    'description' => 'Ver todas as aulas'],
 
             ['name' => 'read-classes-students',               'display_name' => 'read-classes-students',               'description' => 'Ver alunos inscritos na aula'],
-            ['name' => 'update-classes-students-request',     'display_name' => 'update-classes-students-request',        'description' => 'Ver solicitações (aceitar ou negar ) para entrar na aula'],
+            ['name' => 'update-classes-students-request',     'display_name' => 'update-classes-students-request',     'description' => 'Ver solicitações (aceitar ou negar ) para entrar na aula'],
+
+            ['name' => 'access-panel-manage-user-permission', 'display_name' => 'access-panel-manage-user-permission', 'description' => 'Permissão para acessar e alterar o painel de permissões'],
         ];
 
         $role1 = Role::find(1);

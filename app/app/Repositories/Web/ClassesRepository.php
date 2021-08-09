@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 use Exception;
-use Laratrust;
+use Laratrust\LaratrustFacade as Laratrust;
 
 class ClassesRepository
 {

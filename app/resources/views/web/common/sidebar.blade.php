@@ -72,6 +72,12 @@
                                     </li>
                                 @endpermission
 
+                                @permission('access-panel-manage-user-permission')
+                                    <li>
+                                        <a href="{{URL::to('/admin/users/permissions')}}">Painel de permissões</a>
+                                    </li>
+                                @endpermission  
+
                             </ul>
                         </li>
 
