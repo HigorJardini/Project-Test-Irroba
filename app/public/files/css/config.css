@@ -1,3 +1,31 @@
 .font-default{
     font-size: 5px;
 }
+
+.alert-notification-message-ext {
+    color: #6d6d6d;
+  }
+  
+  .alert-notification-message-ext:hover {
+    color: #c72323;
+  }
+  
+  .alert-notification-message-ext-number {
+    margin-top: -19px;
+    margin-left: 10px;
+    background: red;
+    color: #dcdcdc;
+    border-radius: 4px;
+    width: 80%;
+    text-align: center;
+    height: 21px;
+    z-index: 2;
+    position: -webkit-sticky;
+    position: sticky;
+    border: 0.5px solid #dcdcdc;
+    cursor: default;
+  }
+  
+  .alert-notification-message-ext-input-text {
+    font-size: 13px !important;
+  }

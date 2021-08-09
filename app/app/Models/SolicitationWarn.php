@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SolicitationWarn extends Model
 {
@@ -16,8 +15,6 @@ class SolicitationWarn extends Model
     public $timestamps = true;
 
     protected $table = 'solicitation_warn';
-
-    use SoftDeletes;
 
     public function classes_solicitation()
     {

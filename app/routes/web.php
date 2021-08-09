@@ -43,7 +43,6 @@ Route::namespace('Web\Admin')->prefix('admin')->name('admin')->middleware('auth'
         });
 
         Route::delete('delete/{user_id}',              'UsersController@delete')->middleware('permission:delete-users')->name('.delete.users');
-
     });
 
     Route::namespace('Metters')->prefix('metters')->middleware('permission:read-metters')->name('.metters')->group(function () {
@@ -70,4 +69,6 @@ Route::namespace('Web\Admin')->prefix('admin')->name('admin')->middleware('auth'
         Route::put('students/{response}/{request_id}', 'ClassesController@responseStaudentRequest')->middleware('permission:update-classes-students-request')->name('.students.response.request');
     });
 
+    Route::get('notification',                         'NotificationController@notifications')->name('.notification');
+    Route::put('notification/close/{warning_id}',      'NotificationController@notificationsClose')->name('.notification.close');
 });

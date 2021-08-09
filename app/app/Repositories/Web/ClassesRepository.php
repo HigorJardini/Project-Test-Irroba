@@ -188,15 +188,11 @@ class ClassesRepository
                                                ->first();
 
             if($exist == null){
-                $solicitation = $this->classesSolicitation->create([
+                $this->classesSolicitation->create([
                     'class_id' => $class_id,
                     'user_id'   => Auth::id()
                 ]);
     
-                $this->solicitationWarn->create([
-                    'classe_solicitation_id' => $solicitation->id
-                ]);
-
                 DB::commit();
 
                 return response(["Solicitação (id: $class_id) criada com successo, aguarde aprovação!"], 200);
@@ -305,6 +301,10 @@ class ClassesRepository
                                           ]);
                 $reponse = ["Participação negada com successo!"];
             }
+
+            $this->solicitationWarn->create([
+                'classe_solicitation_id' => $request->request_id
+            ]);
 
             DB::commit();
 

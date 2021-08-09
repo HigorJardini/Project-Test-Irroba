@@ -7,7 +7,30 @@
         <div class="profile-content">
             <div class="">
             </div>
-            <span></span>
+
+            <div class="logout-content mr-2">
+                <a id="alertNotificationMessageExt" 
+                   data-toggle="dropdown" 
+                   aria-haspopup="true" 
+                   aria-expanded="false"
+                   onclick="alertNotificationMessageExtLoadingContent()"
+                >
+                    <div style="z-index: 1">
+                        <i class="fas fa-bell alert-notification-message-ext" style="font-size: 14pt; margin-top: 5px;"></i>
+                    </div>
+                    <div class="alert-notification-message-ext-number" 
+                         onmousedown="return false" 
+                         onselectstart="return false">
+                        <span id="alert-notification-message-ext-count">0</span>
+                    </div>
+                </a>
+                <div class="dropdown-menu p-4" aria-labelledby="alertNotificationMessageExt" id="alertNotificationMessageExtContent">
+                    <div class="text-nowrap user-msg user-fix">
+                        Nenhuma notificação recente encontrada.
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="logout-content">
@@ -34,3 +57,5 @@
 
     </div>
 </nav>
+
+

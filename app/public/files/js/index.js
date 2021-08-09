@@ -68,6 +68,13 @@ function accept_request_class(request_id) {
     ajax_user(request_id, url, 'PUT', false, btn, true);
 }
 
+function close_notification(warning_id) {
+
+    var url = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/admin/notification/close/${warning_id}`;
+
+    ajax_user(warning_id, url, 'PUT', false, {});
+}
+
 async function deny_request_class(request_id) {
 
     const { value: reason } = await Swal.fire({
